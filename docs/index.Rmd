@@ -1,45 +1,80 @@
 ---
-title: "Your A4 Report Title (TODO: Revise title)"
-author: "Your Name"
-date: '2022-11-01'
+title: "Inequality: Prison and Jail in the United States"
+author: "Ellen Huynh"
+date: '2022-11-23'
 output: html_document
 ---
 
-```{r echo=FALSE, eval=TRUE, message=FALSE}
-source("../source/a4-helpers.R")
+```{r echo=FALSE, eval=T, message=FALSE}
 source("../source/analysis.R")
 ```
 
+
 ## Abstract 
-[TODO: Include a short abstract (about 50 words)]
-
-# Test (TODO: Remove before submission!!)
-```{r echo=FALSE}
-q1_string <- test_query1()
-num <- 5
-```
-As you know, this is a markdown report. The [R Markdown Cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf) is **useful!**
-
-* Here's a test of a dynamic variable. Say **"`r q1_string`!!!** 
-* Here's another test. A vector
-of numbers: `r test_query2(num)`.
-
-Recall that _{r echo=TRUE}_ can be used to display the code, 
-which is very useful when developing and debugging a report. Here's an example: 
-
-```{r echo=TRUE}
-num <- 5
-sum <- sum(test_query2(num))
-print(sum)
-```
+Data from the non-profit Vera Project describes incarceration data from 1970-2018. Through investigation of prison and jail population/admissions, inequalities and/or patterns are highlighted. This is further emphasized through the lens of race, time, and location. The conclusions points to the specific difference between black and white male prison admissions. 
 
 ## Introduction 
-[TODO]
+
+### Social Issue: 
+
+In Data Feminism we learn the power of data and subsequently data visualizations. The Vera project plans to reshape and remove the over criminalization and incarceration of minority groups. Individuals face social issues as they enter and exit incarceration regardless of racial identity, such effects are highlighted through racial disparity. 
+
+### Stakeholders:
+
+There are multiple stakeholders in terms of the social and economical impacts of incarceration. With the data collected, the (most) direct stakeholder is of course incarcerated people. But others can also include people working at correctional facilities and lawyers. Indirect stakeholders can include the family and communities of incarcerated people, or city leaders/lawmakers. 
+
+### Questions:
+
+Through this data I will be able to answer the question of: 
+
+* Does the total U.S. jail population increase or decrease overtime?
+
+* How does the prison population over time vary between states?
+
+* How does the difference between white males admitted into prison and black males admitted into prison highlight inequality?
+
+* How is the difference between black and white males admitted into prison distribute geographically?
+
+  * Are there any patterns in the distribution of such inequality pattern?
+
 
 ## Data Summary 
-[TODO]
 
-[TODO ... other sections ... See Canvas for details]
+This data set includes a lot of information. To best investigate the data, I decided to just focus on the difference between black and white males in prison. More specifically, with the number of individuals being admitted. I calculated in which year is the average number of white males the highest/lowest and in which year is the average number of black males the highest/lowest. The lowest for white males was in **`r lowest_white`** while the lowest for black males was in **`r lowest_black`** as well. So while the year did not highlight any inequality between white and black, this helped me realize that it's important to remember that the trends in both are a result of greater incarceration trends in a given year. With that, I decided to calculate the difference between the averages of white males and black males. The difference was always not in favor of the black males, meaning that every year the average of black males was higher than the average of white males. The year when there was a biggest difference was in **`r biggest_difference`** and the year where there was the smallest difference was in **`r smallest_difference`**. So while it's good to see that the difference between black and white is lessening as a whole over time, the fact that the year that there was a smallest difference was not the most recent year highlights that such difference is not making great improvements each year. 
 
-_All the very best with your work!_
+
+## Growth of U.S. Prison Population
+
+```{r echo=F, font-size}
+print(plot_jail_pop_for_us())
+```
+
+### Summary: 
+
+The following chart can be used to answer the question: *Does the total U.S. jail population increase or decrease overtime?* In short, the answer to this question is **increase**, but by taking a closer look we can identify other patterns like how despite the overall increase, after a peak in 2008, the prison jail population actually decreases. Also, from 1970 to 1980, the jail population stays relatively steady, not increasing or deceasing by much. 
+
+## Growth of Prison Population by State
+```{r echo=F, fig.width= 10, message=FALSE}
+plot_jail_pop_by_states(c("WA", "TX", "GA", "NY"))
+```
+
+### Summary:
+The following chart can be used to answer the question: *How does the prison population over time vary between states?* As a whole, Texas has the highest prison population while Washington has the lowest. I wanted to provide a overview of the whole country, I tried to pick states that are spread throughout the country. Looking at the chart, it appears that New York's prison population is decreasing! Washington's prison population has been very steady. One thing to note is that there is a sudden drop in 2018. This is not because the prison population has suddenly dropped but this is the date to which data was collected. 
+
+## Inequality Through Prison Admission Pattern
+```{r echo=F, fig.width= 10, message=FALSE, warning=FALSE}
+averages_plot()
+```
+
+### Summary: 
+The following chart can be used to answer the question: *How does the difference between white males admitted into prison and black males admitted into prison highlight inequality?* To answer this question, there is inequality because it is clear that the number of black males admitted is consistently higher than the number of white males. To put it simply, the red lines (which represent the average number of black males admitted in a given year) are often higher than the blue ones (represent the average number of white males admitted in a given year). In particular, the year with the largest difference between Black and White males admitted was in **`r biggest_difference`**. So far, there have only been two years where the average white value is higher than the average black value, that year having the smallest difference of **`r smallest_difference`**. Looking at the data as a whole in terms of prison admission, after the peak of the 1990s, the prison admissions seem to be on a general decline. 
+
+## Prison Inequality Patterns Geographically
+```{r echo=F, fig.width= 10}
+create_plot_map()
+```
+
+### Summary: 
+The following chart can be used to answer the question: *How is the difference between black and white males admitted into prison distribute geographically? Are there any patterns in the distribution of such inequality pattern?* Before analysis, it's important to identify what and how to determine "difference." As the focus has been the difference between race and admitted males, the use of ratio seemed to be the best fit. The use of ratio over just subtraction was preferred as ratio allowed for a more equal results. For example, a state with 100 black and 50 white admitted males have the same ratio as a state with 2 black and 1 white admitted male. Even though the states have the same ratio, if subtraction was used, the state with just more admitted people as a whole would seem like it was worse off. Now to answer the initial question, there is greater difference between black and white males admitted into prison in the east, and less in the west. This can be concluded because there are more dark red states on the right and more blue states on the left. 
+
 
